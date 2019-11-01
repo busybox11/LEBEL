@@ -27,7 +27,7 @@ Pour se faire, 4 modes sont disponibles :
      - Sa traduction corrigé
      - La traduction fausse de l'utilisateur
     
-# Release notes (20 oct.)
+# v2.0 Release notes (20 oct.)
 ## Majeur
   - Création des listes <motFR> et <motET> à partir du fichier ``mot.txt``
 ## Mineur

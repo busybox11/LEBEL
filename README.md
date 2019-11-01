@@ -35,13 +35,21 @@ Pour se faire, 5 modes sont disponibles :
      - reviser
      - test 
     
-# v3.2 Release notes (30 oct.)
+# v3.3 Release notes (31 oct.)
 ## Majeur
-  - Unification du fichier ``settings.txt`` avec le fichier ``score.txt`` --> ``score.txt``
-  - A chaque changement de la variable ``base``, toute les note du fichier ``score.txt`` sont modifiées
+  - Ajout d'un menu graphique
+    - Grâce au module ``turtle`` afficher un graphique sur un repère ``x, y``
+    - Les ordonnées représentent la note sur 20 en fonction du temps (absisses) qui précisons, n'est pas à l'échelle
+    - On peut afficher 2 catégories de note différentes :
+      - Les dernières notes actuelles de la liste ``note`` C'est à dire les notes produites par ``controle()`` depuis l'ouverture du programme
+      - Tous les meilleures notes du fichier ``score.txt``
+    -  Avant de débuté le graphique il faut avoir convertie les notes sur une base de 20
 ## Mineur
-  - Modification de la procédure ``parametre()`` avec l'ajout de procédure interne 
-    - Le problème des variables global à été résolu sans vraiement savoir la cause...
-    - Ce changement permet une meilleure lisibilité
-  - Optimisation du script dans la procédure ``init()``
-  - Correction des fautes d'hortographes et de sytaxes sur les commentaires
+  - Optimisation du script dans ``save()``
+  - Il était inutile de récupérer à chaque note du fichier score.txt la base de la note, car elle est identique partout
+    - La variable ``baseSave`` est donc affectée dès le début grâce à la deuxième ligne du fichier encadré ``#``
+  - Changement de de la ``variable note`` en ``liste note`` pour le mode graphique 
+    - La note enregistrée dans [score.txt](./score.txt) sera donc ``bestNote`` qui est la meilleure note de la liste <note>
+  - Changement de barème sur les points de difficultés, ``3-->4`` donc si la réponse est juste dans ``controle()`` 
+    - Retirer à l'index du mot de la liste ``pointF`` 4 points au lieu de 3 pour plus de diverssité dans les points faibles, plus de facilité pour le joueur 
+  - Ajoute le ``Y`` minuscule lors des demandes de confirmations

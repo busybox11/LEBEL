@@ -39,7 +39,7 @@ Pour se faire, 5 modes sont disponibles :
   - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le fichier [score.txt](./score.txt)
   - Les points faibles de chaque mot sont enregistrés dans le fichier [mot.txt](./mot.txt)
     
-# v3.3.1 Release notes (31 oct.)
+# v3.3.1 Release notes (1 nov.)
 ## Majeur
   - Ajout de de valeur (pas à l'échelle) sur l'axe des abscisses TEMPS du graphique
      - Si le graphique du fichier score.txt est tracé alors l'axe x sera composé des dates des meilleurs note

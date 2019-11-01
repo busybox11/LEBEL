@@ -4,7 +4,7 @@
 # Fonctionnement
 Le but du programme est simple ! ``apprendre des mots dans une autre langue``
 
-Pour se faire, 3 modes sont disponibles : 
+Pour se faire, 4 modes sont disponibles : 
 ### Apprendre
   1. Affichage ligne par ligne dans l'ordre les mots suivis de leurs traductions.
   2. Une fois le mot ``mémorisé``, appuyez sur la touche entrée pour passer au suivant
@@ -27,9 +27,15 @@ Pour se faire, 3 modes sont disponibles :
      - Sa traduction corrigé
      - La traduction fausse de l'utilisateur
     
-# Release notes (20 oct.)
+# v2.1 Release notes (21 oct.)
 ## Majeur
-  - Création des listes <motFR> et <motET> à partir du fichier ``mot.txt``
+  - Ajout du jeux ``pendu``
+    - Demander si le mot affiché doit être en langue 1 ou 2
+    - Affiche le mot en remplacant chaque lettre par un ``_``
+    - Demande de saisir une ``lettre``
+    - Si la lettre est dans le mot, afficher toutes les bonnes lettres
+    - Sinon afficher la ``potence`` en fonction des vies restantes
+    - On peut quitter à tout moment le jeu en entrant ``exit`` à la place d'une lettre
 ## Mineur
-  - Ajout de ``#`` autour du menu
+  - Suppression du bloc ``try:`` dans le programme principal, remplacement par des conditions de type ``str`` 
  

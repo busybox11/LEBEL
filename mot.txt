@@ -1,0 +1,14 @@
+[FR=EN]
+bonjour=hello
+chat=cat
+aujourd'hui=today
+demain=tomorrow
+chien=dog
+
+[FR=DE]
+pomme=Apfel
+ordinateur=Computer
+maison=Hause
+chat=Katze
+chien=Hunde
+

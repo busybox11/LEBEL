@@ -1,6 +1,6 @@
 ####################################################################
 # Copyright (C) 2019-2019 BADER Alexandre <alexandrebader3@gmail.com>
-#
+#8
 # This file is part of LEBEL.
 #
 # LEBEL can not be copied and/or distributed without the express
@@ -8,7 +8,7 @@
 ####################################################################
 
 # Ce programme est la v3.3 du projet LEBEL
-# Debuté le 30/10/19 et fini le 31/10/2019
+# Fait le 31/10/2019
 # Par Alexandre BADER
 
 # Définie la procédure apprendre() avec les paramètres <list1> et  <list2>
@@ -67,7 +67,7 @@ def test(list1, list2, list3):
     # Le test est semblable à reviser() à la différence que la traduction doit être écrite
     # Puis le script vérifie si cette réponse correspond à la tradcution
     # Si, ce n'est pas le cas afficher directement la bonne réponse
-    global base     # Informe au programme que la variable base peut être utiliser partout dans le programme
+    global base     # Informe à Python que la variable base peut être utiliser partout dans le programme
     N = len(list1)      # Initialisation de <int> <N> à la longeur de  <list1>
     p = 0       # Initialisation de <int> <p> (pour point) à 0
     print("Bienvenue dans le mode TEST\n")
@@ -160,8 +160,10 @@ def controle(list1, list2, list3):
                 input()     # Attendre que l'utilisateur prenne connaissance de son erreur
             print()     # Saute une ligne
     # Enregistre le score dans la liste <note>
-    note.append(score) # <note> étant une liste global sa nouvelle valeur sera conservée à la sortie de la procédure
-    if p == N or reponse == 'Y':    # Si il n'y a pas de corrigé ou à l'inverse si le corrigé à bien été lu
+    note[0].append(score) # <note> étant un tableau global sa nouvelle valeur sera conservée à la sortie de la procédure
+    now = datetime.now()
+    note[1].append(now.strftime('%H:%M'))
+    if p == N or reponse in ['Y', 'y']:   # Si il n'y a pas de corrigé ou à l'inverse si le corrigé à bien été lu
         # Pour ne pas avoir un retour trop brusque sur le menu
         input("Appuiez sur entrée pour revenir au menu...")
 
@@ -457,8 +459,8 @@ def parametre(list1, list2, list3, list4):
             newBase = int(input("Entrez votre nouvelle base : "))   # Saisir la nouvelle base dans <str> <newBase>
             if newBase <= 0:   # Si la base est négative ou nulle
                 print("La base doit être supérieur à 0 !")
-        for i in range(len(note)):
-            note[i] = round(note[i] / base * newBase)     # Convertir la note en fonction de la nouvelle base
+        for i in range(len(note[0])):   # Pour i allant de 0 au nombre de note compris dans la liste d'index 0 du tablau note
+            note[0][i] = round(note[0][i] / base * newBase)     # Convertir la note en fonction de la nouvelle base
         base = newBase  # Affecter à la variable global <base>, la variable local <newBase>
     def reset():
         # Ce reset est déconsillé d'être effectué car il ne sera plus possible de connaître ses plus grosses difficultées
@@ -510,15 +512,19 @@ def parametre(list1, list2, list3, list4):
             input("\nLa commande s'est terminée avec succès !\nAppuiez sur entrée pour revenir au menu...")   # Bloque le programme jusq'à une action de l'utilisateur
 
 # Définie la procédure save() sans paramètre
-def graphique():
-    # Cette procédure 
-    global note, base    # note et base sont des variables global pouvait être utilisés dans cette procédure
+def graphique(note, base):
+    # Cette procédure, grâce au module 'turtle' afficher un graphique sur un repère x, y 
+    # Les ordonnées représentent la note sur 20 en fonction du temps (absisses) qui précisons, n'est pas à l'échelle 
+    # On peut afficher 2 catégories de note différentes!
+    #   - Les dernières notes actuelles du tableau <note> 
+    #     C'est à dire les notes produites par controle(), depuis l'ouverture du programme
+    #   - Toutes les meilleures notes du fichier score.txt
+    # Avant de débuté le graphique il faut avoir convertie les notes sur une base de 20
     def s(x, y):
         # Afin de ne pas écrire à chaque fois la même longue procédure
         t.goto(t.xcor()+x, t.ycor()+y)      # Ajoute à x et y la valeur en plus ou en moins voulu 
     def fleche():
         # Trace une flèche au bout du repère
-        t.speed(0)  # Pousse la vitesse de tracage au maximum
         t.right(135)    # Tourne à droite de 135 degrés
         t.down()    # Pose le stylo
         t.forward(9)    # Avance de 9
@@ -530,7 +536,6 @@ def graphique():
         t.up()      # Lève le stylo
         t.backward(9)   # Recule de 9
         t.right(135)    # Tourne de 135 degrés
-        t.speed(5)  # Remet la vitesse à 5
     def ecrire(str, x, y):
         # Ecrit la chaine de caractère voulu en se déplacant de x ou y 
         t.up()  # Lève le stylo
@@ -542,7 +547,7 @@ def graphique():
         t.width(9)  # Règle l'épaisseur du stylo à 9
         t.color('#d287d6') # Règle la couleur du stylo à rose-blanc
         s(0, 0)     # Fait semblant davancer pour que le stylo "imprime"
-        t.width(3)  # Remet l'épaisseur su stylo à 3
+        t.width(4)  # Remet l'épaisseur su stylo à 4
         t.color('#9d2fd5')  # Remet la couleur du stylo à violet
 
     # Programme principale 
@@ -552,8 +557,9 @@ def graphique():
     print("2. Vos meilleures notes du fichier score.txt")
     choix = input("Votre choix : ")
     if choix == '1':
-        liste = note[:]     # Copie la liste <note> dans <liste> SANS ADRESSE !
+        noteGraph = note[0][:]     # Copie la liste <note> dans <noteGraph> SANS ADRESSE !
         baseLocal = base    # Affecte <baseLocal> la <base> actuelle
+        tempsGraph = note[1][:]     # Affecte à <tempsGraph> toutes les heures aux quelles controle() à été appelée
     else:   # Si choix == '2'
         f = open("score.txt", 'r', encoding='Utf-8')    # Ouverture du fichier score.txt en lecture avec l'encodage 'Utf-8'
         f.readline()    # Avance d'une ligne
@@ -566,21 +572,26 @@ def graphique():
             f.readline()    # Lis la ligne suivante
         save = f.readlines()   # Enregistre tout le reste des lignes non lu dans la liste <save>
         f.close()   # Ferme le fichier
-        noteOld = []    # Initialisation de la liste <int> <noteOld>
+        noteGraph = []    # Initialisation de la liste <int> <noteGraph>
+        tempsGraph = []     # Initialisation de la liste <str> <noteGraph>
         for i in range(int(len(save)/3)):    # Pour i allant de la 1ère note à la dernière
             temp = ''   # Initialisation de <temp> à une chaine de caractère vide
             for j in range(26, len(save[i*3+1])):   # Pour i allant du premier caractère de la note au dernier
                 temp += save[i*3+1][j]  # Concatenation de <temp> 
             temp = temp.split('/')    # Séparation de <temp> par le caractère '/' avec la fonction .split()
-            noteOld.append(int(temp[0]))   # Ajoute à la liste <noteOld> la note correspondant à une base de 20
-        liste = noteOld     # Affecte à la <liste> de note les <noteOld> du fichier score.txt
-    if len(liste) < 2:  # Si la quantité de note empêche la création d'un graphique
+            noteGraph.append(int(temp[0]))   # Ajoute à la liste <noteGraph> la note correspondant à une base de 20
+            temp = ''       # Initialisation de <temp> à une chaine de caractère vide
+            for j in range(3, len(save[i*3])):  # Acces à toutes les dates de chaque note
+                temp += save[i*3][j]    # Concatenation de <temp> à aprtir du 3eme caractère 
+            temp = temp.split('/')      # Coupe la chaine de caractère sur les '/'
+            tempsGraph.append(str(temp[0]+'/'+temp[1]))   # La date enregistrer est le jour + le mois
+    if len(noteGraph) < 2:  # Si la quantité de note empêche la création d'un graphique
         print("\nIl n'y a pas assez de notes...\n")     # 
     else:   # Si il y plus d'une note
         if baseLocal != 20:     # Si la <baseLocal> est déjà à 20 il est inutile de convertir les notes avec une base 20...
-            for i in range(len(liste)): # Affecte à chaque index de <liste>
-                liste[i] = liste[i]/baseLocal*20    
-        print("\nOuverture du module turtle.py...", end='')
+            for i in range(len(noteGraph)): # Affecte à chaque index de <noteGraph>
+                noteGraph[i] = round(noteGraph[i]/baseLocal*20)    # La note convertie sur une base de 20
+        print("\nOuverture de la fenêtre turtle.py...", end='')
         try:    # Essaye
             # Si la fenêtre s'est déjà fermé, une erreur se produit lors de la re ouverture
             # Mais si on execute une deuxième fois la commande, alors le module fonctionne à nouveau
@@ -589,16 +600,16 @@ def graphique():
             print("ERREUR !\n2eme tentative d'ouverture...", end='')
         t.reset()   # Remet tout les réglage à 0 et ouvre une fenêtre si ce n'est pas le cas
         t.bgcolor("black")  #Règle la couleur de l'arrière plan à noir
-        t.color("#287ed9") # Règle la couleur du stylo à bleu
-        t.speed(5)  # Règle la vitesse de déplacement à 4
-        t.width(3)  # Règle l'épasseur du stylo à 3
+        t.color("#4261ca") # Règle la couleur du stylo à bleu
+        t.speed(0)  # Règle la vitesse de déplacement à 4
+        t.width(5)  # Règle l'épasseur du stylo à 3
         t.ht()      # Cache le stylo
         t.up()      # Relève le stylo
         ############################
         x = 550     # Dimenssion global X
-        y = 500     # Dimenssion global Y
+        y = 460     # Dimenssion global Y
         ############################
-        descend = -260  # Descente dans les négatif de y par rapport à y=0
+        descend = -220  # Descente dans les négatif de y par rapport à y=0
         dec = 30    # Décalage entre le bout du repère et le bout de la courbe
         # Affiche axe x et y
         print("OK !\nConsruction du repère x, y...", end='')
@@ -616,8 +627,7 @@ def graphique():
         fleche()      # ajout d'une fleche sur le bout de l'axe x
         s(-x, 0)      # Retour à l'origine
         # Construction lignes dégrdées
-        print("OK !\nConstruction de l'échelle en abscisse...", end='')
-        t.speed('fastest')  # Augment la vitesse  
+        print("OK !\nConstruction de l'échelle en ordonnée...", end='')
         t.width(4)    # affine l'épaisseur du stylo
         s(3, 0)     # Se décale un peu vers la droite
         # Initialisation de la liste <degrader> comportant un dégarder du rauge --> vert en #hexadécimal
@@ -628,7 +638,7 @@ def graphique():
         # La couleur R=red=rouge étant dominante on obtient du rouge
         degrader = ['#FD0D01', '#FB2803', '#F94205', '#F85F06', '#F67708', '#F48F0A', '#F2A90C', '#F0BF0E', '#EFD50F', '#EDED11', '#D6EB13', '#BEE915', '#A5E816', '#90E618', '#78E41A', '#64E21C', '#52E01E', '#3CDF1F', '#2ADD21', '#23DB2C']
         for i in range(20):     # Trace 20 lignes en partant de 0
-            t.color('#287ed9')     # Règle la couleur à bleu
+            t.color('#4261ca')     # Règle la couleur à bleu
             if i % 2 == 0:      # Si i est pas divisible par 2
                 if i <10:       # Si i n'a pas encore atteint la dizaine
                     ecrire(str(i), -15, -7)  # Ecrit l'échelle (rapproché de l'axe y)
@@ -641,39 +651,45 @@ def graphique():
             s(x-dec, 0) # Trace la ligne
             t.up()  # Lève le stylo
             s(-(x-dec), 0)  # Reviens sur l'axe des ordonnées
-        t.color('#287ed9')     # Règle la couleur sur bleu
+        t.color('#4261ca')     # Règle la couleur sur bleu
         ecrire('20', -20, -7) # Ecrit l'échelle : 20
         t.up()  # Lève le stylo
         s(-3, 0)    # Se recolle àl'axe y
-        # Initialisation graphique
-        if len(liste) > 40:     # Si le nombre de note est trop grand
-            liste = liste[-40:]     # Garder uniquement les 40 dernières notes
-        t.color('#9d2fd5')  # Règle la couleur sur violet
         s(0, -(y-dec))  # Se place sur l'origine
-        s(0, (liste[0]*(y-dec)/20))     # Monte en y en fonction de la grandeur de la 1ere note de <liste>
+        # Construction échelle temps + Initialisation graphique
+        if len(noteGraph) > 30:     # Si le nombre de note est trop grand
+            noteGraph = noteGraph[-30:]     # Garder uniquement les 30 dernières notes
+        xStep = (x-dec)/(len(noteGraph)-1)  # Règle l'additionneur des absisses 
+        yStep = (y-dec)/20  # Règle le multiplicateur des ordonnées
+        print("OK !\nConstruction de l'échelle en abscisse...", end='')
+        if len(tempsGraph) > 30:     # Si le nombre de note est trop grand
+            tempsGraph = tempsGraph[-30:]     # Garder uniquement les 30 dernières dates
+        t.up()  # Lève le stylo
+        for i in range(len(tempsGraph)):    # Ecrire le nombre de date ou heure dans la lsite <tempsGraph>
+            # Si il y a trop de valeur
+            # Alterner dans les y (une fois sur 2 aller un peu plus bas lors de l'écriture)
+            if len(tempsGraph) > 15 and i % 2:          # Si la division par 2 donen un reste (pour i = 1, 3, 5,...)
+                ecrire(tempsGraph[i], -14, -35)         # Ecrire la date ou heure en allant plus en dessous de l'axe des absisses
+            else:
+                ecrire(tempsGraph[i], -14, -20)     # Ecrire la date ou heure en allant au plus proche de l'axe des absisses
+            s(xStep, 0)     # Avance de quelques x 
+        # Initialisation graphique
+        t.color('#9d2fd5')  # Règle la couleur sur violet
+        s(-(xStep*len(tempsGraph)), 0)      # Retourne à l'origine [0;0]
+        s(0, (noteGraph[0]*(y-dec)/20))     # Monte en y en fonction de la grandeur de la 1ere note de <noteGraph>
         t.down()    # Pose le stylo
         point()     # Trace un point
-        t.width(3)  # Règle l'épaisseur u stylo à 3
-        t.speed('slow') # Change la vitesse à lent
-        x = (x-dec)/(len(liste)-1)  # Règle l'additionneur des absisses 
-        y = (y-dec)/20  # Règle le multiplicateur des ordonnées
+        t.width(4)  # Règle l'épaisseur u stylo à 4
+        t.speed('slowest') # Change la vitesse à lent
         print("OK !\nConstruction de la courbe...", end='')
         # Trace le graphique
-        for i in range(1, len(liste)):  # Pour i allant de 0 à la dernière note de <liste>
-            t.goto(t.xcor() + x, (liste[i]*y+descend))  # Avance de x et se place sur les ordonnées en fonction de la note
+        for i in range(1, len(noteGraph)):  # Pour i allant de 0 à la dernière note de <noteGraph>
+            t.goto(t.xcor() + xStep, noteGraph[i]*yStep+descend)  # Avance de xStep et se place sur les ordonnées en fonction de la note
             point()     # Trace un point
         print("OK !\n")
     input('Appuiez sur entrée pour revenir au menu...')
     #print("Ne fermez pas la fenêtre turtle.py merci :)")
-    if len(liste) > 1:
-        # Ce script servait à laisser la fenêtre ouverte car au bout de la 2eme ouverture uen erreur en résultait
-        # Mais finalement une solution à été fixée avec try:
-        #t.clear()
-        #t.up()
-        #t.speed("fastest")
-        #t.color("white")
-        #t.goto(-325, -10)
-        #t.write("Merci de laissez la fenêtre ouverte :)", font=("Arial", 30, "normal"))
+    if len(noteGraph) > 1:
         t.bye()     # Ferme la fenêtre 
     
 # Définie la procédure save() avec les paramètres <list1>, <list2>, <list3>, <list4>, <base> et <note>
@@ -722,15 +738,18 @@ def save(list1, list2, list3, list4, base, note):
         f.readline()    # Lis la ligne suivante
     save = f.readlines()   # Enregistre tout le reste des lignes non lu dans la liste <save>
     f.close()       # Ferme le fichier score.txt
-    bestNote = 0    # Initialise la meilleure note <int> <bestNote> à 0
-    for i in note:  # Analyse tout les éléments de la liste <note>
-        if i > bestNote:    # Si la note i de <note> est plus grand que <bestNote>
-            bestNote = i    # Affecter à <bestNote> la meilleure note <i>
+    # Initialise de la lsite <int> <bestNote> à 0 pour sauvegarder la meilleure note 
+    # et '' pour sauvegarder l'heure d'obtention de cette note
+    bestNote = [0, '']    
+    for i in range(len(note[0])):  # Analyse tout les éléments de la liste de rang 0 du tableau <note>
+        if note[0][i] > bestNote[0]:    # Si la note i de la liste du rang 0 du tableau <note> est plus grand que l'inde 0 de <bestNote>
+            bestNote[0] = note[0][i]    # Affecter à l'nidex 0 de <bestNote> la meilleure note
+            bestNote[1] = note[1][i]    # Affecter à l'index 1 de <bestNote> l'heure de cette note
     temp = ''   # Iinitialisation de <str> <temp> à ''
     # Si la base du fichier score.txt <baseSave> est égale à la base actuelle
     # Il est inutile de convertir toutes les notes car elles ne changeront pas !
     if baseSave != base:    # Si la <basSave> est différente de la base actuelle
-        dateSave = []   # Initialisation de la liste <dateSave> pour enregistrer les date et heures de chaque scores enregistrés 
+        tempsGraph = []   # Initialisation de la liste <tempsGraph> pour enregistrer les date et heures de chaque scores enregistrés 
         noteNow = []    # Initialisation de la liste <noteNow> pour les nouvelles notes de la nouvelle base 
         # Chaque note est regroupé en 3 lignes
         # 1.Date de la note
@@ -740,7 +759,7 @@ def save(list1, list2, list3, list4, base, note):
         # On divise par 3 la longeur de la liste <save> 
         # Puis ensuite avec une fonction affine (i*3+k) on peut se déplacer dans le 'groupe' de la note
         for i in range(int(len(save)/3)):    # Pour i allant de la première note à la dernière
-            dateSave.append(save[i*3])  # Ajout de la date de la note dans la liste <dateSave>
+            tempsGraph.append(save[i*3])  # Ajout de la date de la note dans la liste <tempsGraph>
             temp = ''   # Initialisation de <temp> à une chaine de caractère vide
             for j in range(26, len(save[i*3+1])):   # Pour i allant du premier caractère de la note au dernier
                 temp += save[i*3+1][j]  # Concatenation de <temp> 
@@ -751,14 +770,13 @@ def save(list1, list2, list3, list4, base, note):
         f = open("score.txt", 'w', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
         f.write("###############\nBASE NOTE = "+str(base)+'\n###############\n\n')      # Ecriture avec encadré de la nouvelle base
         for i in range(len(noteNow)):   # Pour i allant de 0 au nombre de note
-            f.write(dateSave[i]+"La meilleure note était : "+str(noteNow[i])+'/'+str(base)+'\n\n')  # Ecriture du groupe de note (date, note, saut de ligne)
-    elif bestNote > 0:      # Si la base n'a pas changée et que la meilleure note de la partie est supérieure à 0 
+            f.write(tempsGraph[i]+"La meilleure note était : "+str(noteNow[i])+'/'+str(base)+'\n\n')  # Ecriture du groupe de note (date, note, saut de ligne)
+    elif bestNote[0] > 0:      # Si la base n'a pas changée et que la meilleure note de la partie est supérieure à 0 
         f = open("score.txt", 'a', encoding='Utf-8')    # Ouverture du fichier score.txt en écriture avec l'encodage 'Utf-8'
-    if bestNote > 0:    # Si la milleure note de la séance est supérieur à 0
-        from datetime import datetime   # Importation de la focntion datetime du module datetime
+    if bestNote[0] > 0:    # Si la milleure note de la séance est supérieur à 0
         now = datetime.now()    # now est une class contenant la date et l'heure actuelle de l'ordinateur
         # Enregistrement du meilleur score avec la date et heure de la fin du programme
-        f.write("Le "+now.strftime('%d/%m/%y à %H:%M\n') + "La meilleure note était : "+str(bestNote)+'/'+str(base)+'\n\n')
+        f.write("Le "+now.strftime('%d/%m/%y') + " à "+ bestNote[1] + "\nLa meilleure note était : "+str(bestNote[0])+'/'+str(base)+'\n\n')
     f.close     # Fermeture du fichier score.txt
 
 # Définie la fonction init() pour 'initialisation'
@@ -796,10 +814,11 @@ def init():
         base += read[i]     # Ajoute à base par concaténation le caractère i de <read>
     base = int(base)    # Convertion de la base <str> en <int>
     f.close     # Ferme le fichier settings.txt
-    return list1, list2, list3, list4, base, []      # Renvoie toutes les listes, variables et valeur demandé par l'appelle de la fonction init()
+    return list1, list2, list3, list4, base, [[], []]      # Renvoie toutes les listes, variables et valeur demandé par l'appelle de la fonction init()
 
 # PROGRAMME PRINCIPALE
 from random import randint      # Importation de la fontion randint() du module random
+from datetime import datetime   # Importation de la focntion datetime du module datetime
 import turtle as t      # Importation du module turtle, on l'appelle avec t.fonction()
 # Affiche un messsage de bienvenue
 print("Bienvenue dans <LE Boss En Langue> !")
@@ -849,7 +868,7 @@ while play:
         # Appel de la procédure parametre() avec comme arguments motFR, motET, pointF et langue
         parametre(motFR, motET, pointF, langue)
     elif choix == '8':
-        graphique()
+        graphique(note, base)
     elif choix == '9':
         play = False    # Affecte à play l'état False pour sortir de la boucle
     else:    # Si aucune des conditions ci dessus n'a été respectées alors

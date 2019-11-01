@@ -7,9 +7,9 @@
 # permission of Alexandre
 ####################################################################
 
-# Ce programme est la v3.3.1 du projet LEBEL
-# Fait le 31/10/2019
-# Par Alexandre BADER
+# Vous êtes libre de modifier ce programme 
+# Hâte de voir vos suggestions :)
+# Alexandre BADER
 
 # Définie la procédure apprendre() avec les paramètres <list1> et  <list2>
 def apprendre(list1, list2):

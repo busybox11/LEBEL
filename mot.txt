@@ -6,7 +6,7 @@ manger=eat.(0)
 sourire=smile.(2)
 voiture=car.(0)
 arbre=tree.(0)
-plage=beatch.(0)
+plage=beach.(0)
 son=sound.(0)
 livre=book.(0)
 

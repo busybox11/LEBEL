@@ -33,7 +33,11 @@ Pour se faire, 5 modes sont disponibles :
   4. Lance un menu avec 3 modes : 
      - apprendre
      - reviser
-     - test 
+     - test
+     
+# Sauvegarde
+  - Les scores des notes par la procédure ``contrôle`` sont enregistrés dans le fichier [score.txt](./score.txt)
+  - Les points faibles de chaque mot sont enregistrés dans le fichier [mot.txt](./mot.txt)
     
 # v3.3.1 Release notes (31 oct.)
 ## Majeur
@@ -44,5 +48,5 @@ Pour se faire, 5 modes sont disponibles :
      - Si le nombre de valeur est supérieur à 15, alterner la distance par rapport à l'axe x des valeurs lorsques elles sont imprimées
      - Si le nombre de valeur est supérieur à 30, supprimer les premières valeurs pour atteindre 30 au maximum
 ## Mineur
-  - La liste ``note`` passe à tableau pour pouvoir enregistrer l'heure d'obtention de chaque note par la procédure ``controle()``
+  - La liste ``note`` passe à tableau ``note`` pour pouvoir enregistrer l'heure d'obtention de chaque note par la procédure ``controle()``
   - Comme chaque note à une heure, lors de la procédure ``save()`` enregistrer la date actuelle ainsi que l'heure de la note et non actuelle

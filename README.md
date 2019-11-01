@@ -4,7 +4,7 @@
 # Fonctionnement
 Le but du programme est simple ! ``apprendre des mots dans une autre langue``
 
-Pour se faire, 3 modes sont disponibles : 
+Pour se faire, 4 modes sont disponibles : 
 ### Apprendre
   1. Affichage ligne par ligne dans l'ordre les mots suivis de leurs traductions.
   2. Une fois le mot ``mémorisé``, appuyez sur la touche entrée pour passer au suivant

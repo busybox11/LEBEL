@@ -43,5 +43,5 @@ Pour se faire, 5 modes sont disponibles :
   - Modification de la procédure ``parametre()`` avec l'ajout de procédure interne 
     - Le problème des variables global à été résolu sans vraiement savoir la cause...
     - Ce changement permet une meilleure lisibilité
-  - Optimisation du script dans la procédure ``init()`` comme expliqué dans les notes
+  - Optimisation du script dans la procédure ``init()``
   - Correction des fautes d'hortographes et de sytaxes sur les commentaires

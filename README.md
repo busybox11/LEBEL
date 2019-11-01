@@ -35,18 +35,13 @@ Pour se faire, 5 modes sont disponibles :
      - reviser
      - test 
     
-# v3.1 Release notes (28 oct.)
+# v3.2 Release notes (30 oct.)
 ## Majeur
-  - Ajout d'un menu ``paramètre`` :
-    - **Ajouter** des mots dans le fichier ``mot.txt`` Il suffit juste d'ajouter aux 2 listes motFR et motET les mots fourni par l'utilisateur 
-    - **Reset** les points faibles, remet toutes les valeurs de la liste pointF à ``0``
-    - **Changer** la base de de la note, changer l'affichage de la note pour la procédure ``controle()`` et le fichier ``score.txt``, si base = 20 la note sera afficher sous forme ``16/20``
-    - **Quitter** le menu pour retourner au ``menu principale``
+  - Unification du fichier ``settings.txt`` avec le fichier ``score.txt`` --> ``score.txt``
+  - A chaque changement de la variable ``base``, toute les note du fichier ``score.txt`` sont modifiées
 ## Mineur
-  - Enregistrement de la meilleur note provenant de la procédure ``controle()`` dans le fichier ``score.txt`` avec la date et l'heure
-  - Création d'un fichier ``settings.txt`` pour enregistrer la variable ``base``
-  - Optimisation et amélioration du protocole ``pendu()`` En particulier pour la gestion des ``e`` avec accents pour ainsi afficher les lettres ``é è ê ou ë`` juste en saisissant ``e``
-  - Ajout de tous les ``commentaires`` sur presques chaque ligne. Et explication par commentaires de chaque ``procédure`` ou ``script``
-      
-      
-      
+  - Modification de la procédure ``parametre()`` avec l'ajout de procédure interne 
+    - Le problème des variables global à été résolu sans vraiement savoir la cause...
+    - Ce changement permet une meilleure lisibilité
+  - Optimisation du script dans la procédure ``init()`` comme expliqué dans les notes
+  - Correction des fautes d'hortographes et de sytaxes sur les commentaires

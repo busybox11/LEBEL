@@ -35,31 +35,18 @@ Pour se faire, 5 modes sont disponibles :
      - reviser
      - test 
     
-# v3.0 Release notes (24 oct.)
+# v3.1 Release notes (28 oct.)
 ## Majeur
-  - Modification du fichier mot.txt pour ajouter à chaque paire de mot sa difficulté
-  - Modification de la procédure controle()
-    - ``[cahier des charges] ``
-    - A chaque faute, la difficulé du mot augmente de 6 
-    - Il faut répondre juste 2 fois de suite uniquement lors du controle pour pouvoir annuler par soustraction les 6 points de difficultés. Mais si le joueur quitte avant d'avoir répondu 2x juste alors
-      - Si les points de difficultés tendent plus vers la dizaine inférieur Arrondire les points de diff à la dizaine inférieur
-      - Si les points de difficultés tendent plus vers la dizaine supérieur et que comme l'utilisateur a quitter son apprentissage, le temps qu'il revienne il aura plus de mal à se souvenir de ses mot difficiles donc arrondire les points de diff à la dizaine supérieur
-    - ``[Algorithme]``
-    - Incrémenter 6 à l'index du mot correspondant de la liste pointF
-    - Lors de la fermeture de programme enregistrer chaque index de la liste pointF au mot correspondant :
-      - Diviser par 10 la valeur 
-      -  Arrondire à l'entier inférieur si la décimale est comprise entre [1, 3]
-      - Arrondire à l'entier supérieur si la décimale est comprise entre [4, 9]
+  - Ajout d'un menu ``paramètre`` :
+    - **Ajouter** des mots dans le fichier ``mot.txt`` Il suffit juste d'ajouter aux 2 listes motFR et motET les mots fourni par l'utilisateur 
+    - **Reset les points faibles**, remet toutes les valeurs de la liste pointF à ``0``
+    - **Changer la base* de de la note, changer l'affichage de la note pour la procédure ``controle()`` et le fichier ``score.txt``, si base = 20 la note sera afficher sous forme ``16/20``
+    - **Quitter** le menu pour retourner au ``menu principale``
 ## Mineur
-  - Amélioration de la procédure pendu():
-    - Si l'utilisateur saisie 'exit' comme lettre :
-      - Appeler ``vie`` restante fois la procédure ``life(vie)`` pour afficher la ``potence`` en entier
-      - Affecter à vie ``0`` pour sortir du de la boucle while et afficher la réponse sans passer par les conditions additionnels (if... and r != "exit")
-    - Ajout de la ``première`` lettre dès le départ, comme les règles officiel
-  - Suppresion de la variable ``global N`` à cause du mini menu de la procédure hard()
-    - Remplacement du N global par un ``N local`` dans chaque procédure
-  - Optimisation de la demande de traduction dans les procédures test() et controle()
-  - Ajout d'un Copy Right 
+  - Enregistrement de la meilleur note provenant de la procédure ``controle()`` dans le fichier ``score.txt`` avec la date et l'heure
+  - Création d'un fichier ``settings.txt`` pour enregistrer la variable ``base``
+  - Optimisation et amélioration du protocole ``pendu()`` En particulier pour la gestion des ``e`` avec accents pour ainsi afficher les lettres ``é è ê ou ë`` juste en saisissant ``e``
+  - Ajout de tous les ``commentaires`` sur presques chaque ligne. Et explication par commentaires de chaque ``procédure`` ou ``script``
       
       
       

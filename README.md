@@ -35,21 +35,14 @@ Pour se faire, 5 modes sont disponibles :
      - reviser
      - test 
     
-# v3.3 Release notes (31 oct.)
+# v3.3.1 Release notes (31 oct.)
 ## Majeur
-  - Ajout d'un menu graphique
-    - Grâce au module ``turtle`` afficher un graphique sur un repère ``x, y``
-    - Les ordonnées représentent la note sur 20 en fonction du temps (absisses) qui précisons, n'est pas à l'échelle
-    - On peut afficher 2 catégories de note différentes :
-      - Les dernières notes actuelles de la liste ``note`` C'est à dire les notes produites par ``controle()`` depuis l'ouverture du programme
-      - Tous les meilleures notes du fichier ``score.txt``
-    -  Avant de débuté le graphique il faut avoir convertie les notes sur une base de 20
+  - Ajout de de valeur (pas à l'échelle) sur l'axe des abscisses TEMPS du graphique
+     - Si le graphique du fichier score.txt est tracé alors l'axe x sera composé des dates des meilleurs note
+     - Si le graphique de la séance actuelle est tracé alors l'axe x sera composé des heures aux quelles controle() a été appelé
+     - Pour rester lisible et par l'impossiblité d'affiché les valeurs sans qu'elles sont parallèles à l'axe 
+     - Si le nombre de valeur est supérieur à 15, alterner la distance par rapport à l'axe x des valeurs lorsques elles sont imprimées
+     - Si le nombre de valeur est supérieur à 30, supprimer les premières valeurs pour atteindre 30 au maximum
 ## Mineur
-  - Optimisation du script dans ``save()``
-  - Il était inutile de récupérer à chaque note du fichier score.txt la base de la note, car elle est identique partout
-    - La variable ``baseSave`` est donc affectée dès le début grâce à la deuxième ligne du fichier encadré ``#``
-  - Changement de de la ``variable note`` en ``liste note`` pour le mode graphique 
-    - La note enregistrée dans [score.txt](./score.txt) sera donc ``bestNote`` qui est la meilleure note de la liste <note>
-  - Changement de barème sur les points de difficultés, ``3-->4`` donc si la réponse est juste dans ``controle()`` 
-    - Retirer à l'index du mot de la liste ``pointF`` 4 points au lieu de 3 pour plus de diverssité dans les points faibles, plus de facilité pour le joueur 
-  - Ajoute le ``Y`` minuscule lors des demandes de confirmations
+  - La liste ``note`` passe à tableau pour pouvoir enregistrer l'heure d'obtention de chaque note par la procédure ``controle()``
+  - Comme chaque note à une heure, lors de la procédure ``save()`` enregistrer la date actuelle ainsi que l'heure de la note et non actuelle

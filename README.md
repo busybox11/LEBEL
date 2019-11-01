@@ -40,7 +40,7 @@ Pour se faire, 5 modes sont disponibles :
   - Ajout d'un menu ``paramètre`` :
     - **Ajouter** des mots dans le fichier ``mot.txt`` Il suffit juste d'ajouter aux 2 listes motFR et motET les mots fourni par l'utilisateur 
     - **Reset les points faibles**, remet toutes les valeurs de la liste pointF à ``0``
-    - **Changer la base* de de la note, changer l'affichage de la note pour la procédure ``controle()`` et le fichier ``score.txt``, si base = 20 la note sera afficher sous forme ``16/20``
+    - **Changer la base** de de la note, changer l'affichage de la note pour la procédure ``controle()`` et le fichier ``score.txt``, si base = 20 la note sera afficher sous forme ``16/20``
     - **Quitter** le menu pour retourner au ``menu principale``
 ## Mineur
   - Enregistrement de la meilleur note provenant de la procédure ``controle()`` dans le fichier ``score.txt`` avec la date et l'heure

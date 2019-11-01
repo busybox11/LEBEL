@@ -51,7 +51,7 @@ Pour se faire, 5 modes sont disponibles :
       -  Arrondire à l'entier inférieur si la décimale est comprise entre [1, 3]
       - Arrondire à l'entier supérieur si la décimale est comprise entre [4, 9]
 ## Mineur
-  - Amélioration de la procédure pendu():
+  - Amélioration de la procédure ``pendu()``:
     - Si l'utilisateur saisie 'exit' comme lettre :
       - Appeler ``vie`` restante fois la procédure ``life(vie)`` pour afficher la ``potence`` en entier
       - Affecter à vie ``0`` pour sortir du de la boucle while et afficher la réponse sans passer par les conditions additionnels (if... and r != "exit")

@@ -29,7 +29,7 @@ Pour se faire, 4 modes sont disponibles :
     
 # v2.0 Release notes (20 oct.)
 ## Majeur
-  - Création des listes <motFR> et <motET> à partir du fichier ``mot.txt``
+  - Création des listes <motFR> et <motET> à partir du fichier [mot.txt](./mot.txt)
 ## Mineur
   - Ajout de ``#`` autour du menu
  
